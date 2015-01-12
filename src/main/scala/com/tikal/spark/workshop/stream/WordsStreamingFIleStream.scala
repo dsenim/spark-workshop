@@ -12,7 +12,7 @@ import org.apache.spark.streaming._
 object WordsStreamingFIleStream {
   def main(args: Array[String]) {
     val ssc = new StreamingContext(
-      new SparkConf().setMaster("local").setAppName("stream-wc"),
+      new SparkConf().setMaster("local[6]").setAppName("stream-wc"),
       Seconds(15)
     )
 

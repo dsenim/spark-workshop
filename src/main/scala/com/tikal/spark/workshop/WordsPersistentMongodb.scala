@@ -20,7 +20,7 @@ object WordsPersistentMongodb {
     conf.set("mongo.output.uri", "mongodb://127.0.0.1/spark_workshop/tags.output")
 
     //Create tag -> cont unique tuples and save them to Mongo
-    sc.textFile(args(0)).map(name => (name, 1)).reduceByKey(_ + _).map(counter => {
+    sc.textFile(Conf.NAMES_PATH).map(name => (name, 1)).reduceByKey(_ + _).map(counter => {
       val obj = new BasicBSONObject()
       obj.put("count", counter._2)
       obj.put("tag", counter._1)

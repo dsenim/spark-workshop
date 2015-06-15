@@ -16,7 +16,7 @@ object HelloWorld {
     val sc = new SparkContext("local[4]", "hello-world")
 
     //Create RDD from the greeting file.
-    val lines = sc.textFile(args(0))
+    val lines = sc.textFile(Conf.HELLO_PATH)
 
     //TRANSFORMATION: Add 'Hello' word at the start and '!' at the end of each line.
     val greetings = lines.map(line => s"Hello $line!")

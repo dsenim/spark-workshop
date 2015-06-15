@@ -16,13 +16,10 @@ object WordsOptimized {
     // 2. Create word -> count tuple
     // 3. Calculate number of unique words by reducing the stream
     // 4. Return a collection of [word -> count] tuples back to the driver
-    val words = sc.textFile(args(0))
-      .map(name => (name, 1))
-      .reduceByKey(_ + _)
-      .collect()
+    val words = sc.textFile(Conf.NAMES_PATH).map(name => (name, 1)).reduceByKey(_ + _).collect()
 
     //Print words out
-    println(words)
+    words.foreach(pair => println(s"[${pair._1}:${pair._2}]"))
   }
 
 }

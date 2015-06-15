@@ -16,7 +16,15 @@ object WordsStreamingFIleStream {
       Seconds(15)
     )
 
-    ssc.textFileStream(args(0)).map((_,1)).reduceByKey(_ + _).print()
+    ssc.checkpoint("/var/lib/spark/data/checkpoint")
+
+    val f = ssc.textFileStream("/var/lib/spark/data/tags")
+      .map((_,1))
+      .reduceByKey(_ + _).cache()
+
+    f.foreachRDD{
+      _.foreach(println(_))
+    }
 
     ssc.start()
     ssc.awaitTermination()
